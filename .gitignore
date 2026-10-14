@@ -1,0 +1,9 @@
+.pioenvs
+.clang_complete
+.gcc-flags.json
+.piolibdeps
+.pio/**
+.vscode/**
+buildserialnumber
+include/version.h
+wifi_diag.txt
