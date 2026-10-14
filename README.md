@@ -2,7 +2,7 @@
 
 # ESP8266 based Neopixel LED clock
 
-This project was created form the following original link. The code was ported with assistance Cursor AI agents.
+This project was created from the following original link. The code was ported with assistance Cursor AI agents.
 
 Detailed description can be found at the original blog, [diy.viktak.com](https://diy.viktak.com/2020/09/mirror-led-clock.html)
 
