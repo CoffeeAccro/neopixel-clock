@@ -88,8 +88,15 @@ namespace settings
         }
 
 #ifdef __debugSettings
-        serializeJsonPretty(doc, Serial);
-        Serial.println();
+        {
+            StaticJsonDocument<768> debugDoc = doc;
+            if (debugDoc.containsKey("password"))
+                debugDoc["password"] = "<redacted>";
+            if (debugDoc.containsKey("accessPointPassword"))
+                debugDoc["accessPointPassword"] = "<redacted>";
+            serializeJsonPretty(debugDoc, Serial);
+            Serial.println();
+        }
 #endif
 
         if (doc["ssid"])
@@ -248,8 +255,15 @@ namespace settings
         doc["lastOfTrailBrightness"] = lastOfTrailBrightness;
 
 #ifdef __debugSettings
-        serializeJsonPretty(doc, Serial);
-        Serial.println();
+        {
+            StaticJsonDocument<768> debugDoc = doc;
+            if (debugDoc.containsKey("password"))
+                debugDoc["password"] = "<redacted>";
+            if (debugDoc.containsKey("accessPointPassword"))
+                debugDoc["accessPointPassword"] = "<redacted>";
+            serializeJsonPretty(debugDoc, Serial);
+            Serial.println();
+        }
 #endif
 
         File configFile = LittleFS.open("/config.json", "w");
@@ -268,8 +282,18 @@ namespace settings
     {
         sprintf(localHost, "%s-%s", DEFAULT_MQTT_TOPIC, GetDeviceMAC().substring(6).c_str());
 
-        strcpy(wifiSSID, localHost);
-        strcpy(wifiPassword, DEFAULT_AP_PASSWORD);
+        // Prefer compile-time placeholders if set; otherwise start blank so the
+        // device boots into AP mode for first-time WiFi setup via the web UI.
+        if (DEFAULT_WIFI_SSID[0] != '\0')
+            strcpy(wifiSSID, DEFAULT_WIFI_SSID);
+        else
+            wifiSSID[0] = '\0';
+
+        if (DEFAULT_WIFI_PASSWORD[0] != '\0')
+            strcpy(wifiPassword, DEFAULT_WIFI_PASSWORD);
+        else
+            wifiPassword[0] = '\0';
+
         strcpy(mqttServer, DEFAULT_MQTT_SERVER);
 
         strcpy(accessPointPassword, DEFAULT_AP_PASSWORD);

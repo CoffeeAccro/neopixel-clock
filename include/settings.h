@@ -12,6 +12,11 @@ namespace settings
 #define DEFAULT_NODE_FRIENDLY_NAME "Neopixel Clock"
 #define DEFAULT_AP_PASSWORD "esp12345678"
 
+// Add your WiFi SSID here (leave empty to configure via the device's AP web UI):
+#define DEFAULT_WIFI_SSID ""
+// Add your WiFi password here (leave empty to configure via the device's AP web UI):
+#define DEFAULT_WIFI_PASSWORD ""
+
 #ifdef __debugSettings
 #define DEFAULT_MQTT_SERVER "192.168.123.42"
 #else

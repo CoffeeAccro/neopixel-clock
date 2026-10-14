@@ -44,7 +44,11 @@ void PrintParameters(AsyncWebServerRequest *request)
         }
         else if (p->isPost())
         {
-            Serial.printf("POST[%s]: %s\r\n", p->name().c_str(), p->value().c_str());
+            // Never echo WiFi/admin passwords to the serial log.
+            if (p->name() == "txtPassword")
+                Serial.printf("POST[%s]: <redacted>\r\n", p->name().c_str());
+            else
+                Serial.printf("POST[%s]: %s\r\n", p->name().c_str(), p->value().c_str());
         }
         else
         {
